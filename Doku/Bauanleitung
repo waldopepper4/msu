@@ -1,1 +1,22 @@
-xxx
+Angaben zum Gehäuse:
+msu.f3d ist der CAD-file für fusion360.
+msu.step für andere CAD-Programme verwendbar.
+Die *.stl zum direkten Drucken, alle Teile in Drucklage gespeichert.
+
+Gehäuseteile gedruckt mit PCblend, ASA oder ABS im Prusa coreone. 0,2mm Schichthöhe, falls mit Rand, dann Finish der Kanten mit Schleifschwamm nötig.
+Start-/Stopp- und Reset-Knopf mit Prusa-MK3S PLA 0,2mm, das transparente Fensterchen mit PETG, 0,1mm Schichthöhe.
+In den Ausschnitt für das Display passt eine 1mm dicke Scheibe aus vivak oä. Einkleben zB. mit canopy-glue, ebenso das kleine Fensterchen für die Ladeanzeige des TP4056.
+
+Teileliste und Bezug siehe BOM-msu.PDF.
+
+Platine bestücken, zuletzt low-cost Fassung und Display.
+
+Software mit Arduino-IDE 2.3.7 erstellt. Für die megaTiny-AVR die Einstellungen machen, die hier beschrieben sind: https://wolles-elektronikkiste.de/megatinycore-nutzen#prep
+Arduino-Nano als Programmer mit https://github.com/ElTangas/jtag2updi programmieren und 2 Leitungen für PROG und GND anlöten.
+siehe auch dort im readme-file: " 
+Building with Arduino IDE
+If you prefer, the program can be built as if it was an Arduino sketch. Inside the "source" directory, there is an empty file called "jtag2updi.ino" so that the Arduino IDE can recognize the source code.
+Just copy all the files inside "source" to a new directory called "jtag2updi" inside your sketch main directory.
+The Arduino IDE will automatically set the correct MCU model and F_CPU, but if you want to change the speed of the UPDI link, you will have to edit UPDI_BAUD directly in the source code.
+"
+Im sourcefile msu.ino sind auch einige nützliche links und pinbelegung des AVR 3216.
