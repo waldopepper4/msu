@@ -1,1 +1,2 @@
 mit dem msu.zip-file kann Platine bei JLCPCB bestellt werden 
+die datei msu-2026-07-25_202339.zip enthält den Letztstand der KiCad-Platine (KiCAD 9.x)
