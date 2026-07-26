@@ -4,7 +4,7 @@ Eine Start- /Stopptaste startet bzw. stoppt den Zähler. Der Endwert bleibt so l
 Eine Resettaste setzt den Zähler wieder auf den Anfangswert. 
 Ein langes Drücken der Resettaste erlaubt die Minuten einzustellen: mit der Start- / Stopptaste kann der Wert erhöht werden, ein langes Drücken verringert den Minutenwert. Ein nochmaliges Drücken der Resettaste speichert den Minuten-Startwert. 
 Bei Überlauf wird eine Minus- bzw. Überzeit solange angezeigt werden, bis mit der Start- / Stopptaste der Zähler gestoppt wird. Beim Erreichen der letzten 30, 20 und 10 Sekunden ertönt ein Piepser, bei 9,8,7,6,5,4,3,2 und 1 Sekunde weitere kurze Piepstöne und bei 00:00 ein langer Piepston. 
-Verwende wurde microchip ATtiny 3216 mit Display DOGM081.
+Verwendet wurde microchip ATtiny 3216 mit Display DOGM081.
 Wenn die Spannung von 3,1V der Lithium-Batteriezelle unterschritten wird, erscheint "BATTLOW". Der Strombedarf im Betrieb ist ca. 1,7mA, im sleep-Mode 15uA, daher ist kein Ein-/Ausschalter nötig. Die verwendete Batterie hat eine  Sicherheitsschaltung und zusätzlich hat die Ladeschaltung TP4056 eine Batterie-Überwachung.
 
 <img width="2891" height="3642" alt="totale" src="https://github.com/user-attachments/assets/7a6f89ff-a7ca-406d-b1ea-5b429b6fb91f" />
