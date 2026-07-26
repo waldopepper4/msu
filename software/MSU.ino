@@ -1,11 +1,6 @@
 char Version[] = "23072026";
 // Modell Flug Stoppuhr = Abwärtszähler von voreingestellten Minuten mit Überzeitanzeige und Piepser
 //  Kein Tastendruck und Zähler zählt nicht + 10 sec. ==> sleep
-//
-// 23.7.2026: Interrupt für Aufwachen auf LEVEL geändert, Stromverbrauch 16uA inkl. TP4056 ?
-// 7.7.2026:  Umbau zu Display DOGM081 in SPI-mode
-// 6.7.2026:  BATTLOW impl.
-// 5.7.2026:  Erstellt von Gemini
 //                    |------- Arduino pin numbers--------|                       
 //                                  +----\/----+                                                    
 //                             VDD 1|o         |20 GND      
@@ -299,7 +294,6 @@ void startBeep(uint32_t durationMs,unsigned int freq) {
 
 void checkBuzzerDuration() {
   if (buzzerActive && millis() >= buzzerEndTime) {
-    //digitalWrite(PIN_BUZZER, LOW);
     noTone(PIN_BUZZER);
     buzzerActive = false;
   }
