@@ -1,6 +1,9 @@
-char Version[] = "23072026";
+char Version[] = "22102026";
 // Modell Flug Stoppuhr = Abwärtszähler von voreingestellten Minuten mit Überzeitanzeige und Piepser
 //  Kein Tastendruck und Zähler zählt nicht + 10 sec. ==> sleep
+//  23.07.2026: Fertig
+//  22.10.2026: inactivity time auf 300 sec. erhöht (Von Chr.S.angemerkt nach ZZS am 17-10-2026) 
+//
 //                    |------- Arduino pin numbers--------|                       
 //                                  +----\/----+                                                    
 //                             VDD 1|o         |20 GND      
@@ -47,6 +50,8 @@ char Version[] = "23072026";
 #define DISPLAY_CS_PIN    PIN_PC1                           // Chip Select for SPI Display
 #define DISPLAY_SCK_PIN   PIN_PA3                         // SPI Clock pin
 
+#define INACTIVITY  300             // Zeit bis sleep
+
 #define unusedPinNum 8                                    // Count of unused pins to set as INPUT_PULLUP for power saving
 uint8_t unusedPin[10]  = {2,3,4,7,8,9,13,15}; //2, 3, 4, 7, 8, 9, 13, 15};   // List of unused pins
 
@@ -83,7 +88,7 @@ void Spannungmessen();
 // Pin als Eingang definieren
 bool emptybatt = false;                 // Statusvariable für niedrigen Batteriestand
 
-uint16_t waketimer = 10;
+uint16_t waketimer = INACTIVITY;
 uint32_t lastTime = 0;
 
 // --- Button-Events ---
@@ -132,7 +137,7 @@ void onStartStopClick() {
       updateDisplay();
       break;
   }
-waketimer=10;
+waketimer=INACTIVITY;
 }
 
 void onStartStopLongPress() {
@@ -141,7 +146,7 @@ void onStartStopLongPress() {
     if (initialMinutes < 1) initialMinutes = 99; // Umlaufschutz
     updateDisplay();
   }
-waketimer=10;
+waketimer=INACTIVITY;
 }
 
 void onResetClick() {
@@ -163,7 +168,7 @@ void onResetClick() {
     default:
       break;
   }
-waketimer=10;
+waketimer=INACTIVITY;
 }
 
 void onResetLongPress() {
@@ -171,7 +176,7 @@ void onResetLongPress() {
     currentState = SETTING;
     updateDisplay();
   }
-  waketimer=10;
+  waketimer=INACTIVITY;
 }
 
 ////////////////////////////////// START SETUP ////////////////////////////////////////////////////////////////////
@@ -253,7 +258,7 @@ void loop() {
       }
       updateDisplay();
     }
-  waketimer=10;  
+  waketimer=INACTIVITY;  
   }
 if (millis() - lastTime >= 1000) {
   lastTime += 1000;
@@ -287,14 +292,16 @@ void updateDisplay() {
 }
 
 void startBeep(uint32_t durationMs,unsigned int freq) {
-  tone(PIN_BUZZER,freq);
+  //tone(PIN_BUZZER,freq);
+  digitalWrite(PIN_BUZZER,HIGH);
   buzzerEndTime = millis() + durationMs;
   buzzerActive = true;
 }
 
 void checkBuzzerDuration() {
   if (buzzerActive && millis() >= buzzerEndTime) {
-    noTone(PIN_BUZZER);
+    //noTone(PIN_BUZZER);
+    digitalWrite(PIN_BUZZER,LOW);
     buzzerActive = false;
   }
 }
@@ -356,7 +363,7 @@ void goSleep(){
   DOG.contrast(15); 
   DOG.displ_onoff(true);                         // Turn display on
   DOG.cursor_onoff(false);
-  waketimer = 10;                   // Reset idle timer
+  waketimer = INACTIVITY;                   // Reset idle timer
 
   Spannungmessen();                         // Battery check
   updateDisplay();
